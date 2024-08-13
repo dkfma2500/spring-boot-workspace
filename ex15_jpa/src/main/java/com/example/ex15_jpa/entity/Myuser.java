@@ -8,9 +8,8 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "myuser")
-public class Myuser {
+public class MyUser {
     @Id
     private String id;
     private String name;
-    
 }

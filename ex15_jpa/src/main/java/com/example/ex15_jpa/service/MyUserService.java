@@ -5,15 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.ex15_jpa.entity.MyUserRepository;
-import com.example.ex15_jpa.entity.Myuser;
+import com.example.ex15_jpa.entity.MyUser;
+import com.example.ex15_jpa.repository.MyUserRepository;
 
 @Service
 public class MyUserService {
-    @Autowired
-    private static MyUserRepository myUserRepository;
 
-    public static List<Myuser> list() {
+    @Autowired
+    private MyUserRepository myUserRepository;
+
+    public List<MyUser> list() {
         return myUserRepository.findAll();
     }
 }

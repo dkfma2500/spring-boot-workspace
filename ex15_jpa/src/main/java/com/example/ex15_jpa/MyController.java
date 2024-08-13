@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.ex15_jpa.service.MyUserService;
-import java.util.List;
+
 
 @Controller
 public class MyController {
-
+    
     @Autowired
     private MyUserService myUserService;
 
@@ -22,9 +22,9 @@ public class MyController {
     }
 
     // @RequestMapping(value = "/user", method = RequestMethod.GET)
-    @GetMapping(value = "/user")   
+    @GetMapping(value = "/user")
     public String userlistPage(Model model) {
-        model.addAttribute("users", MyUserService.list());
+        model.addAttribute("users", myUserService.list());
         return "userlist";
     }
 }

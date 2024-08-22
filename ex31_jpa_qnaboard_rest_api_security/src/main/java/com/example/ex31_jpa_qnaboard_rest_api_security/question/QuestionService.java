@@ -10,10 +10,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.ex31_jpa_qnaboard_rest_api_security.DataNotFoundException;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -51,4 +59,15 @@ public class QuestionService {
         q.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q);
     }
+    @PreAuthorize("isAuthenticated()")
+    @PutMapping("/modify/{id}")
+    public ResponseEntity<String> modifyQuestion(@PathVariable("id") Integer id,
+            @Valid @RequestBody QuestionDTO questionDTO,
+            BindingResult bindingResult, Principal principal) {
+        if (bindingResult.hasErrors()) {
+            StringBuilder errorMsg = new StringBuilder();
+            bindingResult.getFieldErrors().forEach(error -> errorMsg.append(error.getDefaultMessage()).append("; "));
+            return new ResponseEntity<>(errorMsg.toString(), HttpStatus.BAD_REQUEST);
+        }
+        Question question = this.questionService.getQuestion(id);
 }

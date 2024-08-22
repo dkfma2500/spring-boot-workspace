@@ -45,6 +45,12 @@ public class MyController {
         }
     }
 
+    @PostMapping("/write")
+    public ResponseEntity<Board> write(@RequestBody Board board) {
+        boardService.write(board.getWriter(), board.getTitle(), board.getContent());
+        return ResponseEntity.ok(board);
+    }
+
     // @PostMapping("/write")
     // public ResponseEntity<Board> write(@RequestParam("writer") String writer,
     //         @RequestParam("title") String title,
@@ -59,21 +65,11 @@ public class MyController {
     //     return ResponseEntity.ok(newBoard);
     // }
 
-    @PostMapping("/write")
-    public ResponseEntity<Board> write(@RequestBody Board board){
-
-        boardService.write(board.getWriter(), board.getTitle(), board.getContent());
-
-        return ResponseEntity.ok(board);
-   
-    }
-            
-
     // @DeleteMapping("/delete")
     // public ResponseEntity<Void> delete(@RequestParam("id") int id) {
-    //     boardService.delete(id);
+    // boardService.delete(id);
 
-    //     return ResponseEntity.noContent().build();
+    // return ResponseEntity.noContent().build();
     // }
 
     @DeleteMapping("/delete/{id}")
@@ -84,12 +80,14 @@ public class MyController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Board> update(@PathVariable int id, @RequestBody Board updatedBoard) 
-     { try {
-        Board board = boardService.update(id,updatedBoard.getWriter(), updatedBoard.getTitle(), updatedBoard.getContent());
-        return ResponseEntity.ok(board);
-
-     } catch (RuntimeException e) {
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Board> update(@PathVariable int id, @RequestBody Board updatedBoard) {
+        try {
+            Board board = boardService.update(id, updatedBoard.getWriter(), updatedBoard.getTitle(),
+                    updatedBoard.getContent());
+            return ResponseEntity.ok(board);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
-     }}
+}
+

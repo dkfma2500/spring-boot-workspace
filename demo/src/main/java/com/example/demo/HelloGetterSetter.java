@@ -26,11 +26,11 @@ public class HelloGetterSetter {
     }
 
     public static void main(String[] args) {
-        HelloGetterSetter helloGettController = new HelloGetterSetter("김삼남", 97);
-        // helloGettController.setHello("김일남");
-        // helloGettController.setLombok(99);
+        HelloGetterSetter helloGetterSetter = new HelloGetterSetter("김삼남", 97);
+        // helloGetterSetter.setHello("김일남");
+        // helloGetterSetter.setLombok(99);
 
-        System.out.println(helloGettController.getHello());
-        System.out.println(helloGettController.getLombok());
+        System.out.println(helloGetterSetter.getHello());
+        System.out.println(helloGetterSetter.getLombok());
     }
 }
